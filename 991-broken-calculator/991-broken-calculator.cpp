@@ -7,11 +7,11 @@ public:
         {
             if(target%2==0)
                 target/=2;
-            else
+            else{
                 target++;
-            
+            }
             ++res;
         }
-        return res + startValue - target;
+        return res + (startValue - target);
     }
 };
