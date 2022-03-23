@@ -5,10 +5,10 @@ public:
         
         while(target > startValue)
         {
-            if(target%2)
-                ++target;
-            else
+            if(target%2==0)
                 target/=2;
+            else
+                target++;
             
             ++res;
         }
