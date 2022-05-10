@@ -1,33 +1,33 @@
 class Solution {
 public:
 
-    vector<vector<int>> ans;
-    
-    int sum(vector<int>& combo){
-        int temp = 0;
-        for(int x : combo)
-            temp += x;
-        return temp;
-    }
-    
-    void helper(vector<int>& combo, int k, int n, int num){
-        if(!k){
-            if(sum(combo)==n)
-                ans.push_back(combo);
-            return;
+    void combutil(vector<vector<int>>& result, vector<int> sol, int k, int n)
+    {
+      if(sol.size()==k && n == 0)
+      {
+        result.push_back(sol);
+          return;
+      }
+        if(sol.size() < k)
+        {
+            for(int i = sol.empty() ? 1 : sol.back() + 1; i<=9 ; ++i)
+            {
+              if(n-i < 0)
+                  break;
+                sol.push_back(i);
+                combutil(result, sol, k, n-i);
+                    sol.pop_back();
+            }
         }
-        
-        if(num > 9) return;
-        
-        combo.push_back(num);
-        helper(combo, k-1, n, num+1);
-        combo.pop_back();
-        helper(combo, k, n, num+1);
+    
     }
     
-    vector<vector<int>> combinationSum3(int k, int n) {
-        vector<int> combo;
-        helper(combo, k, n, 1);
-        return ans;
+    vector<vector<int>> combinationSum3(int k,int n)
+    {
+        vector<vector<int>> result;
+        vector<int> sol;
+        combutil(result, sol, k, n);
+        return result;
     }
+    
 };
