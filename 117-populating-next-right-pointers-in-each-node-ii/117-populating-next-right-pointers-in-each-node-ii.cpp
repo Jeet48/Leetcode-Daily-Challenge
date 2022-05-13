@@ -19,46 +19,20 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        Node *curr = NULL;
-        Node *head = root;
+        Node *curr = nullptr, *head=root;
         
-        while(head!=NULL){
-            Node *temp = head;
-            head = NULL;
-            Node *prev = NULL;
+        while(head){
+          Node *prev = nullptr, *temp = head;
+            head = nullptr;
             
-            while(temp!=NULL){
-                
-                if(temp->left!=NULL){
-                    
-                    if(head==NULL){
-                        head = temp->left;
-                    }
-                    
-                    if(prev!=NULL){
-                        prev->next = temp->left;
-                        prev = temp->left;
-                    }
-                    else {
-                        prev = temp->left;
-                    }
+            while(temp){
+                for(const auto& lr : {temp->left, temp->right}){
+                    if(lr==nullptr) continue;
+                    if(head==nullptr) head = lr;
+                    if(prev) prev->next = lr;
+                    prev=lr;
                 }
-                
-                if(temp->right!=NULL) {
-                    if(head==NULL){
-                        head = temp->right;
-                    }
-                    
-                    if(prev!=NULL){
-                        prev->next=temp->right;
-                        prev=temp->right;
-                    }
-                    else {
-                        prev = temp->right;
-                        
-                    }
-                }
-                temp=temp->next;
+                temp = temp->next;
             }
         }
         return root;
