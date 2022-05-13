@@ -19,22 +19,26 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        Node *curr = nullptr, *head=root;
         
-        while(head){
-          Node *prev = nullptr, *temp = head;
-            head = nullptr;
+        Node *newRoot=root;
+        while(root!=NULL){
             
-            while(temp){
-                for(const auto& lr : {temp->left, temp->right}){
-                    if(lr==nullptr) continue;
-                    if(head==nullptr) head = lr;
-                    if(prev) prev->next = lr;
-                    prev=lr;
+            Node *dummy = new Node;
+            Node *temp = dummy;
+            
+            while(root!=NULL){
+                if(root->left){
+                    dummy->next=root->left;
+                    dummy=dummy->next;
                 }
-                temp = temp->next;
+                if(root->right){
+                    dummy->next=root->right;
+                    dummy=dummy->next;
+                }
+                root = root->next;
             }
+            root=temp->next;
         }
-        return root;
+        return newRoot;
     }
 };
