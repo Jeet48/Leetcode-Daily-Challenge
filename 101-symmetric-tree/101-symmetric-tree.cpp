@@ -11,23 +11,13 @@
  */
 class Solution {
 public:
-    bool isSymmetric(TreeNode* root) {
-        
-        if(root==NULL) return true; //Tree is empty
-        
-        return isSymmetricTest(root->left,root->right);
+    bool f(TreeNode *root1, TreeNode* root2) {
+        if(!root1) return !root2;
+        if(!root2) return !root1;
+        return (root1->val == root2->val) && f(root1->left, root2->right) && f(root1->right, root2->left);
     }
-    
-    bool isSymmetricTest(TreeNode* p , TreeNode* q){
-        if(p == NULL && q == NULL) //left & right node is NULL 
-            return true; 
-        
-        else if(p == NULL || q == NULL) //one of them is Not NULL
-            return false; 
-        
-        else if(p->val!=q->val) 
-            return false;
-        
-        return isSymmetricTest(p->left,q->right) && isSymmetricTest(p->right,q->left); //comparing left subtree's left child with right subtree's right child --AND-- comparing left subtree's right child with right subtree's left child
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        return f(root->left, root->right);
     }
 };
